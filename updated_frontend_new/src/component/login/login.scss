@@ -1,0 +1,25 @@
+Input {
+  height: 60px;
+  width: 400px;
+  font-size: 20px;
+  margin-left: 10px;
+  background-color: rgb(32, 60, 87);
+  border: none;
+  border-radius: 12px;
+  outline: none;
+  color: white;
+  &::placeholder {
+    color: lightgrey;
+    margin-left: 10px;
+  }
+}.login-btn {
+  height: 60px;
+  width: 480px;
+  font-size: 20px;
+  cursor: pointer;
+  border: none;
+  background-color: rgb(30, 13, 33);
+  border-radius: 10px;
+  color: white;
+  font-size: 20px;
+}
