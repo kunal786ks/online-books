@@ -14,6 +14,7 @@ const AvatarComponent = ({
   height: string;
   width: string;
 }) => {
+  console.log("cinsoe")
   return (
       <Avatar
         alt={name}
