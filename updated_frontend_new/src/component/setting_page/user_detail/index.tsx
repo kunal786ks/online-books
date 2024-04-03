@@ -1,18 +1,22 @@
 "use client";
 import ImageComponent from "@/component/atom/imageComponent";
-import { Box, Button, Text } from "@chakra-ui/react";
+import { Box, Button, Input, Text } from "@chakra-ui/react";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import EmailIcon from "@mui/icons-material/Email";
 import HomeIcon from "@mui/icons-material/Home";
 import KeyIcon from "@mui/icons-material/Key";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import LanguageIcon from '@mui/icons-material/Language';
 import InstagramIcon from "@mui/icons-material/Instagram";
 import XIcon from "@mui/icons-material/X";
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { useAppSelector } from "@/store/store";
+import UserImageModal from "@/component/modal/userSettingModal";
+import { Tooltip } from "@mui/material";
 
 const UserDetails = () => {
-  const userDetails = useAppSelector((state) => state.userReducer?.user);
+  const userDetails = useAppSelector((state) => state.userReducer);
 
   return (
     <Box m="20px" h="95%">
@@ -32,12 +36,29 @@ const UserDetails = () => {
         bg="rgb(234, 239, 255)"
         borderRadius="12px"
       >
-        <ImageComponent
-          alt="user"
-          width="200px"
-          src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
-          height="200px"
-        />
+        <Box display="flex" alignItems="center" position="relative">
+          <UserImageModal>
+            <Tooltip title="Update profile pic">
+              <Box
+                zIndex="100"
+                position="absolute"
+                top="3px"
+                right="9px"
+                cursor="pointer"
+              >
+                <AddAPhotoIcon htmlColor="white" />
+              </Box>
+            </Tooltip>
+          </UserImageModal>
+
+          <ImageComponent
+            alt="user"
+            width="200px"
+            src={userDetails?.userImage}
+            height="200px"
+          />
+        </Box>
+
         <Box width="100%">
           <Text
             fontSize="30px"
@@ -46,9 +67,9 @@ const UserDetails = () => {
             flexWrap="wrap"
             width="100%"
           >
-            {userDetails?.userName &&
-              userDetails?.userName.charAt(0).toUpperCase() +
-                userDetails.userName.slice(1)}
+            {userDetails?.user?.userName &&
+              userDetails?.user?.userName.charAt(0).toUpperCase() +
+                userDetails?.user?.userName.slice(1)}
           </Text>
           <Text color="gray">normal user</Text>
         </Box>
@@ -91,7 +112,7 @@ const UserDetails = () => {
             overflow="hidden"
             textOverflow="ellipsis"
           >
-            {userDetails?.email}
+            {userDetails?.user?.email}
           </Text>
         </Box>
         <Box
@@ -105,7 +126,7 @@ const UserDetails = () => {
           borderRadius="12px"
           p="10px"
         >
-          <KeyIcon htmlColor="rgb(133, 135, 139)" sx={{ height: "90px" }} />
+          <LanguageIcon htmlColor="rgb(133, 135, 139)" sx={{ height: "90px" }} />
           <Text
             width="300px"
             color="rgb(133, 135, 139)"
@@ -117,7 +138,7 @@ const UserDetails = () => {
             overflow="hidden"
             textOverflow="ellipsis"
           >
-            user pass
+            ADD YOUR WEBSITE
           </Text>
         </Box>
         <Box
@@ -143,7 +164,7 @@ const UserDetails = () => {
             fontSize="20px"
             alignItems="center"
           >
-            +91 574737436463
+            +91 01234-56789
           </Text>
         </Box>
         <Box
@@ -169,7 +190,7 @@ const UserDetails = () => {
             overflow="hidden"
             textOverflow="ellipsis"
           >
-            user address
+            STREET CITY COUNTRY
           </Text>
         </Box>
       </Box>
@@ -201,14 +222,17 @@ const UserDetails = () => {
         Sign out
       </Button>
       <Text
-        mt="15px"
+        mt="20px"
         fontSize="15px"
         color="rgb(133, 135, 139)"
         textDecoration="underline"
+        width="100%"
+        display="flex"
+        justifyContent="center"
       >
         Link Platfroms
       </Text>
-      <Box display="flex" gap="20px" mt="15px">
+      <Box display="flex" gap="20px" mt="15px" width="100%" justifyContent="center">
         <FacebookIcon
           htmlColor="rgb(123, 178, 255)"
           style={{ fontSize: "20px", cursor: "pointer" }}

@@ -17,7 +17,7 @@ const LayoutComponent = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  const userDetails = useAppSelector((state) => state.userReducer?.user);
+  const userDetails = useAppSelector((state) => state.userReducer);
 
   const handleClick = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -35,110 +35,108 @@ const LayoutComponent = ({ children }: { children: React.ReactNode }) => {
     router.push("/login");
   };
 
-  const handleNaviagte=()=>{
-  
-  }
+  const handleNaviagte = () => {};
   return (
-    <main>
-    <Container display="flex">
-      <Box height="100vh" bg="rgb(255, 255, 255)" width="300px">
-        <MenuBar />
-      </Box>
-      <Box w="100%">
-        <Box
-          height="6vh"
-          display="flex"
-          justifyContent="space-between"
-          w="100%"
-        >
-          <SearchComponent />
+    <div>
+      <Container display="flex">
+        <Box height="100vh" bg="rgb(255, 255, 255)" width="300px">
+          <MenuBar />
+        </Box>
+        <Box w="100%">
           <Box
+            height="6vh"
             display="flex"
-            alignItems="center"
-            justifyContent="center"
-            mr="20px"
-            gap="20px"
+            justifyContent="space-between"
+            w="100%"
           >
+            <SearchComponent />
             <Box
-              bg="rgb(242, 246, 255)"
-              h="30px"
-              w="30px"
-              border="1px solid lightgray"
-              borderRadius="50%"
-              alignItems="center"
               display="flex"
-              justifyContent="center"
-            >
-              <MODE />
-            </Box>
-            <Box
-              bg="rgb(242, 246, 255)"
-              h="30px"
-              w="30px"
-              border="1px solid lightgray"
-              borderRadius="50%"
               alignItems="center"
-              display="flex"
               justifyContent="center"
+              mr="20px"
+              gap="20px"
             >
-              <NOTI_ICON />
-            </Box>
-            <Box cursor="pointer" onClick={handleClick}>
-              <AvatarComponent
-                height="35px"
-                width="35px"
-                name={userDetails?.userName}
-                url="https://t3.ftcdn.net/jpg/03/58/90/78/360_F_358907879_Vdu96gF4XVhjCZxN2kCG0THTsSQi8IhT.jpg"
-              />
-            </Box>
-            {userDetails?.userName && (
-              <Popover
-                id={id}
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left",
-                }}
+              <Box
+                bg="rgb(242, 246, 255)"
+                h="30px"
+                w="30px"
+                border="1px solid lightgray"
+                borderRadius="50%"
+                alignItems="center"
+                display="flex"
+                justifyContent="center"
               >
-                <Typography
-                  sx={{
-                    p: 3,
-                    "&:hover": {
-                      backgroundColor: "rgb(211, 211, 211)",
-                      cursor: "pointer",
-                    },
+                <MODE />
+              </Box>
+              <Box
+                bg="rgb(242, 246, 255)"
+                h="30px"
+                w="30px"
+                border="1px solid lightgray"
+                borderRadius="50%"
+                alignItems="center"
+                display="flex"
+                justifyContent="center"
+              >
+                <NOTI_ICON />
+              </Box>
+              <Box cursor="pointer" onClick={handleClick}>
+                <AvatarComponent
+                  height="35px"
+                  width="35px"
+                  name={userDetails?.user?.userName}
+                  url={userDetails?.userImage}
+                />
+              </Box>
+              {userDetails?.user?.userName && (
+                <Popover
+                  id={id}
+                  open={open}
+                  anchorEl={anchorEl}
+                  onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
                   }}
-                  onClick={handleNaviagte}
                 >
-                  {userDetails?.userName &&
-                    userDetails?.userName.charAt(0).toUpperCase() +
-                      userDetails.userName.slice(1)}
-                </Typography>
-                <Button
-                  cursor="pointer"
-                  width="60px"
-                  h="40px"
-                  ml="14px"
-                  mb="10px"
-                  mr="10px"
-                  border="none"
-                  borderRadius="50%"
-                  onClick={handleLogout}
-                >
-                  <LogoutIcon htmlColor="rgb(45, 58, 82)" />
-                </Button>
-              </Popover>
-            )}
+                  <Typography
+                    sx={{
+                      p: 3,
+                      "&:hover": {
+                        backgroundColor: "rgb(211, 211, 211)",
+                        cursor: "pointer",
+                      },
+                    }}
+                    onClick={handleNaviagte}
+                  >
+                    {userDetails?.user?.userName &&
+                      userDetails?.user?.userName.charAt(0).toUpperCase() +
+                        userDetails?.user?.userName.slice(1)}
+                  </Typography>
+                  <Button
+                    cursor="pointer"
+                    width="60px"
+                    h="40px"
+                    ml="14px"
+                    mb="10px"
+                    mr="10px"
+                    border="none"
+                    borderRadius="50%"
+                    onClick={handleLogout}
+                  >
+                    <LogoutIcon htmlColor="rgb(45, 58, 82)" />
+                  </Button>
+                </Popover>
+              )}
+            </Box>
+          </Box>
+          <Box bg="rgb(246, 249, 254)" h="94vh">
+            {children}
           </Box>
         </Box>
-        <Box bg="rgb(246, 249, 254)" h="94vh">
-          {children}
-        </Box>
-      </Box>
-    </Container>
-    </main>
+      </Container>
+    </div>
   );
 };
 

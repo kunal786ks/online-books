@@ -1,6 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { type RootState } from "@/store/store";
-import { addUserDetails, loginUserDetails } from "./user.action";
+import {
+  addUserDetails,
+  loginUserDetails,
+  updateProfilePic,
+} from "./user.action";
 
 const initialState: userIntialInterface = {
   user: {
@@ -9,6 +13,7 @@ const initialState: userIntialInterface = {
     email: "",
   },
   token: "",
+  userImage: "",
   loading: false,
   error: "",
 };
@@ -26,6 +31,7 @@ export const userSlice: any = createSlice({
         userName: "",
         email: "",
       };
+      state.userImage="",
       (state.token = ""), (state.loading = false);
       state.error = "";
     },
@@ -39,6 +45,7 @@ export const userSlice: any = createSlice({
       .addCase(addUserDetails.fulfilled, (state, { payload }) => {
         state.user = payload.newUser;
         state.token = payload.token;
+        state.userImage=payload.userImage;
         state.loading = false;
         state.error = {};
       })
@@ -58,6 +65,7 @@ export const userSlice: any = createSlice({
       .addCase(loginUserDetails.fulfilled, (state, { payload }) => {
         state.user = payload.userResponse;
         state.token = payload.token;
+        state.userImage=payload.userImage;
         state.loading = false;
         state.error = {};
       })
@@ -68,6 +76,19 @@ export const userSlice: any = createSlice({
           userName: "",
           email: "",
         };
+        state.loading = false;
+        state.error = payload.message;
+      })
+      .addCase(updateProfilePic.pending, (state) => {
+        state.loading = true;
+        state.error = {};
+      })
+      .addCase(updateProfilePic.fulfilled, (state, { payload }) => {
+        state.userImage = payload?.existingUser?.userImage;
+        state.loading = false;
+        state.error = {};
+      })
+      .addCase(updateProfilePic.rejected, (state, { payload }: any) => {
         state.loading = false;
         state.error = payload.message;
       });

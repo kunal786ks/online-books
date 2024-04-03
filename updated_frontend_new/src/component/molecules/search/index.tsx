@@ -1,3 +1,4 @@
+'use client';
 import React from "react";
 import { Box, Input, InputGroup, InputLeftAddon } from "@chakra-ui/react";
 import { SEARCH_ICON } from "@/assests/icons";

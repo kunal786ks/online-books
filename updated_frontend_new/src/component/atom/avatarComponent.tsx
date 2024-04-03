@@ -1,7 +1,6 @@
 "use client";
-
 import { Avatar } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const AvatarComponent = ({
   url,
@@ -14,13 +13,18 @@ const AvatarComponent = ({
   height: string;
   width: string;
 }) => {
-  console.log("cinsoe")
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
-      <Avatar
-        alt={name}
-        src={url}
-        sx={{ width: width, height: height }}
-      />
+    <>
+      {isClient && (
+        <Avatar alt={name} src={url} sx={{ width: width, height: height }} />
+      )}
+    </>
   );
 };
 

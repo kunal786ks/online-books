@@ -9,6 +9,10 @@ interface errorResponseInterface {
   message?: any;
 }
 
+interface updateProfileInterface{
+  userId:string;
+  image:any;
+}
 interface addUserInterface{
   userName:string,
   email:string,
@@ -28,8 +32,9 @@ interface userInterfcae{
 interface userIntialInterface{
     user:userInterfcae,
     token:string,
+    userImage:string
     loading:boolean,
-    error:any
+    error:any,
 }
 interface menuItemInterface {
   label: string;
