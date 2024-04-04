@@ -7,13 +7,14 @@ import EmailIcon from "@mui/icons-material/Email";
 import HomeIcon from "@mui/icons-material/Home";
 import KeyIcon from "@mui/icons-material/Key";
 import FacebookIcon from "@mui/icons-material/Facebook";
-import LanguageIcon from '@mui/icons-material/Language';
+import LanguageIcon from "@mui/icons-material/Language";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import XIcon from "@mui/icons-material/X";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import { useAppSelector } from "@/store/store";
-import UserImageModal from "@/component/modal/userSettingModal";
+import UserImageModal from "@/component/modal/userImageModal";
 import { Tooltip } from "@mui/material";
+import UserSettingModal from "@/component/modal/userSettingModal/userSettingModal";
 
 const UserDetails = () => {
   const userDetails = useAppSelector((state) => state.userReducer);
@@ -73,9 +74,11 @@ const UserDetails = () => {
           </Text>
           <Text color="gray">normal user</Text>
         </Box>
-        <Box mb="auto" mt="10px" ml="5px" cursor="pointer" mr="10px">
-          <BorderColorIcon htmlColor="rgb(133, 135, 139)" />
-        </Box>
+          <Box mb="auto" mt="10px" ml="5px" cursor="pointer" mr="10px">
+        <UserSettingModal>
+            <BorderColorIcon htmlColor="rgb(133, 135, 139)" />
+        </UserSettingModal>
+          </Box>
       </Box>
 
       <Box
@@ -126,7 +129,10 @@ const UserDetails = () => {
           borderRadius="12px"
           p="10px"
         >
-          <LanguageIcon htmlColor="rgb(133, 135, 139)" sx={{ height: "90px" }} />
+          <LanguageIcon
+            htmlColor="rgb(133, 135, 139)"
+            sx={{ height: "90px" }}
+          />
           <Text
             width="300px"
             color="rgb(133, 135, 139)"
@@ -232,7 +238,13 @@ const UserDetails = () => {
       >
         Link Platfroms
       </Text>
-      <Box display="flex" gap="20px" mt="15px" width="100%" justifyContent="center">
+      <Box
+        display="flex"
+        gap="20px"
+        mt="15px"
+        width="100%"
+        justifyContent="center"
+      >
         <FacebookIcon
           htmlColor="rgb(123, 178, 255)"
           style={{ fontSize: "20px", cursor: "pointer" }}
