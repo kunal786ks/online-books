@@ -7,6 +7,7 @@ export const dynamic = "force-dynamic";
 const POST = async (req: Request) => {
   try {
     noStore();
+    console.log("helo")
     let userDetails: any = await req.json();
     const response = await axios.post(`${BASE_URL}/${USER_API_PATH}/add-user`, {
       userName: userDetails.userName,
