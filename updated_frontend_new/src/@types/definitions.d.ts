@@ -8,7 +8,12 @@ interface errorResponseInterface {
   statusCode?: number;
   message?: any;
 }
-
+interface updateInterface{
+  userId:string
+  phone:String,
+  website:String,
+  address:String
+}
 interface updateProfileInterface{
   userId:string;
   image:any;
@@ -26,7 +31,10 @@ interface userInterfcae{
     id:string,
     userName:string,
     email:string,
-    user_img?:string
+    user_img?:string,
+    phone?:string,
+    website?:string,
+    address?:string
 }
 
 interface userIntialInterface{

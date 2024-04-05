@@ -18,7 +18,7 @@ import UserSettingModal from "@/component/modal/userSettingModal/userSettingModa
 
 const UserDetails = () => {
   const userDetails = useAppSelector((state) => state.userReducer);
-
+  console.log(userDetails,"this is userDetails")
   return (
     <Box m="20px" h="95%">
       <Text
@@ -70,15 +70,15 @@ const UserDetails = () => {
           >
             {userDetails?.user?.userName &&
               userDetails?.user?.userName.charAt(0).toUpperCase() +
-                userDetails?.user?.userName.slice(1)}
+              userDetails?.user?.userName.slice(1)}
           </Text>
           <Text color="gray">normal user</Text>
         </Box>
-          <Box mb="auto" mt="10px" ml="5px" cursor="pointer" mr="10px">
-        <UserSettingModal>
+        <Box mb="auto" mt="10px" ml="5px" cursor="pointer" mr="10px">
+          <UserSettingModal>
             <BorderColorIcon htmlColor="rgb(133, 135, 139)" />
-        </UserSettingModal>
-          </Box>
+          </UserSettingModal>
+        </Box>
       </Box>
 
       <Box
@@ -144,7 +144,8 @@ const UserDetails = () => {
             overflow="hidden"
             textOverflow="ellipsis"
           >
-            ADD YOUR WEBSITE
+            {/* {userDetails?.user?.website ? "ADD YOUR WEBSITE" : `${userDetails?.user?.website}`} */}
+            {userDetails?.user?.website}
           </Text>
         </Box>
         <Box
@@ -170,7 +171,7 @@ const UserDetails = () => {
             fontSize="20px"
             alignItems="center"
           >
-            +91 01234-56789
+            +91 {userDetails?.user?.phone}
           </Text>
         </Box>
         <Box
@@ -196,7 +197,7 @@ const UserDetails = () => {
             overflow="hidden"
             textOverflow="ellipsis"
           >
-            STREET CITY COUNTRY
+            {userDetails?.user?.address}
           </Text>
         </Box>
       </Box>

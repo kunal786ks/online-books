@@ -34,7 +34,7 @@ const addUser = async (req, res) => {
       email: newUser.email,
       phone: newUser.userPhone,
       address: newUser.userAddress,
-      webiste: newUser.userWebsite,
+      website: newUser.userWebsite,
     };
     const token = generateToken(newUser);
     newUser.userImage = `http://localhost:8081${newUser.userImage}`;
@@ -75,7 +75,7 @@ const getUser = async (req, res) => {
       email: user.email,
       phone: user.userPhone,
       address: user.userAddress,
-      webiste: user.userWebsite,
+      website: user.userWebsite,
     };
     const token = generateToken(user);
     return res.status(200).json({
@@ -132,22 +132,21 @@ const updateGeneralInfo = async (req, res) => {
         message: "User Not Found",
       });
     }
-    const { email, phone, website, address } = req.body;
-    existingUser.email = email;
+    const { phone, website, address } = req.body;
     existingUser.userPhone = phone;
     existingUser.userWebsite = website;
     existingUser.userAddress = address;
     await existingUser.save();
 
     const user = {
-      email: existingUser.email,
       phone: existingUser.userPhone,
       address: existingUser.userAddress,
-      webiste: existingUser.userWebsite,
+      website: existingUser.userWebsite,
     };
 
     return res.status(200).json({
-      user,
+      message:"User updated successfully",
+      user
     });
   } catch (error) {
     throw new Error(error);
@@ -182,10 +181,29 @@ const updatePassword = async (req, res) => {
     throw new Error(error);
   }
 };
+
+const deleteUser=async(req,res)=>{
+  try {
+    const id=req.params.userId;
+    const userFound=await User.findByIdAndDelete(id);
+    if(!userFound){
+      return res.status(404).json({
+        message:"User not found"
+      })
+    }
+    return res.status(200).json({
+      message:"User Deleted Successfully"
+    })
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
 module.exports = {
   addUser,
   getUser,
   uplaodUserImage,
   updateGeneralInfo,
   updatePassword,
+  deleteUser
 };

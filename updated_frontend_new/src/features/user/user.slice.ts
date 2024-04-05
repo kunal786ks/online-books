@@ -3,6 +3,7 @@ import { type RootState } from "@/store/store";
 import {
   addUserDetails,
   loginUserDetails,
+  updateGenralInfo,
   updateProfilePic,
 } from "./user.action";
 
@@ -11,6 +12,9 @@ const initialState: userIntialInterface = {
     id: "",
     userName: "",
     email: "",
+    phone: "",
+    website: "",
+    address: ""
   },
   token: "",
   userImage: "",
@@ -30,9 +34,12 @@ export const userSlice: any = createSlice({
         id: "",
         userName: "",
         email: "",
+        phone: "",
+        website: "",
+        address: ""
       };
-      state.userImage="",
-      (state.token = ""), (state.loading = false);
+      state.userImage = "",
+        (state.token = ""), (state.loading = false);
       state.error = "";
     },
   },
@@ -45,7 +52,7 @@ export const userSlice: any = createSlice({
       .addCase(addUserDetails.fulfilled, (state, { payload }) => {
         state.user = payload.newUser;
         state.token = payload.token;
-        state.userImage=payload.userImage;
+        state.userImage = payload.userImage;
         state.loading = false;
         state.error = {};
       })
@@ -65,7 +72,7 @@ export const userSlice: any = createSlice({
       .addCase(loginUserDetails.fulfilled, (state, { payload }) => {
         state.user = payload.userResponse;
         state.token = payload.token;
-        state.userImage=payload.userImage;
+        state.userImage = payload.userImage;
         state.loading = false;
         state.error = {};
       })
@@ -91,7 +98,23 @@ export const userSlice: any = createSlice({
       .addCase(updateProfilePic.rejected, (state, { payload }: any) => {
         state.loading = false;
         state.error = payload.message;
-      });
+      })
+      .addCase(updateGenralInfo.pending, (state) => {
+        state.loading = true;
+        state.error = {};
+      })
+      .addCase(updateGenralInfo.fulfilled, (state, { payload }) => {
+        console.log(payload,"this is fullfilled payoad")
+        state.user.address = payload.user.address;
+        state.user.phone = payload.user.phone;
+        state.user.website = payload.user.website;
+        state.loading = false;
+        state.error = {}
+      })
+      .addCase(updateGenralInfo.rejected, (state, { payload }: any) => {
+        state.loading = false;
+        state.error = payload.message
+      })
   },
 });
 
