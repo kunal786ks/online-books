@@ -32,7 +32,7 @@ const LayoutComponent = ({ children }: { children: React.ReactNode }) => {
 
   const handleLogout = () => {
     dispatch(logoutUser());
-    router.push("/login");
+    router.push("/");
   };
 
   const handleNaviagte = () => {};
